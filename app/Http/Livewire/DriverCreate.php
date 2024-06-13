@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Livewire;
 
 use Livewire\Component;
@@ -116,13 +115,7 @@ class DriverCreate extends Component
                 $this->addError('general', 'Failed to create new driver due to unexpected error.');
             }
         }
-
-
-        
-       
     }
-
-
 
     public function render()
     {

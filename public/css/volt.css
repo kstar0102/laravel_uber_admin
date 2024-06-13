@@ -15269,6 +15269,12 @@ label {
   font-size: 2rem;
 }
 
+.pending {
+  margin-left: .5rem;
+  color: #2361ce;
+  font-size: 2rem;
+}
+
 .unverified {
   margin-left: .5rem;
   color: #E11D48;
@@ -18256,6 +18262,7 @@ label {
 
 .table-flush td,
 .table-flush th {
+  vertical-align: middle;
   border-left: 0;
   border-right: 0; }
 
@@ -19074,3 +19081,8 @@ article .h1, article .h2, article .h3, article .h4, article .h5, article .h6 {
 
 .datepicker-dropdown {
   z-index: 9999; }
+.avatar-item {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}

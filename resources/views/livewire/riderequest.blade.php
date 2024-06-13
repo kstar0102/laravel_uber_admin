@@ -35,60 +35,33 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>Alex Miller</td>
-                <td>2024-05-30 11:11:11</td>
-                <td>
-                    <span class="text-capitalize badge bg-info p-sm-2">Ongoing</span>
-                </td>
-                <td>
-                    <div class="d-flex aligh-items-center">
-                        <a href="/riderequest/1" class="me-md-1">
-                            <i class="fas fa-eye text-info"></i>
-                        </a>
-                        <span class="me-md-1 riderequest-del-btn" data-id="1">
-                            <i class="fas fa-trash text-danger"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Rasheed Lee</td>
-                <td>Alex Miller</td>
-                <td>2024-05-31 12:12:12</td>
-                <td>
-                    <span class="text-capitalize badge bg-danger p-sm-2">Cancelled</span>
-                </td>
-                <td>
-                    <div class="d-flex aligh-items-center">
-                        <a href="/riderequest/1" class="me-md-1">
-                            <i class="fas fa-eye text-info"></i>
-                        </a>
-                        <span class="me-md-1 riderequest-del-btn" data-id="1">
-                            <i class="fas fa-trash text-danger"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Dene Miller</td>
-                <td>Calton White</td>
-                <td>2024-05-31 12:12:12</td>
-                <td>
-                    <span class="text-capitalize badge bg-success p-sm-2">Completed</span>
-                </td>
-                <td>
-                    <div class="d-flex aligh-items-center">
-                        <a href="/riderequest/1" class="me-md-1">
-                            <i class="fas fa-eye text-info"></i>
-                        </a>
-                        <span class="me-md-1 riderequest-del-btn" data-id="1">
-                            <i class="fas fa-trash text-danger"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>
+            @foreach($requests as $item)
+                <tr>
+                    <td>{{ $item->driver_name }}</td>
+                    <td>{{ $item->rider_name }}</td>
+                    <td>{{ $item->start_date }}</td>
+                    <td>
+                        @if($item->status == 0)
+                            <span class="text-capitalize badge bg-info p-sm-2">New Requested</span>
+                        @elseif($item->status == 1)
+                            <span class="text-capitalize badge bg-success p-sm-2">Completed</span>
+                        @else
+                            <span class="text-capitalize badge bg-danger p-sm-2">Cancelled</span>
+                        @endif
+                        
+                    </td>
+                    <td>
+                        <div class="d-flex aligh-items-center">
+                            <a href="/riderequest/{{ $item->id }}" class="me-md-1">
+                                <i class="fas fa-eye text-info"></i>
+                            </a>
+                            <span class="me-md-1 riderequest-del-btn" data-id="1">
+                                <i class="fas fa-trash text-danger"></i>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

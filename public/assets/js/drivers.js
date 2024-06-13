@@ -1,5 +1,4 @@
 $(function () {
-    let del_id = '';
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-primary',
@@ -10,7 +9,7 @@ $(function () {
     
 
     $('.driver-del-btn').click(function() {
-        del_id = $(this).attr('data-id');
+        let del_id = $(this).attr('data-id');
 
         swalWithBootstrapButtons.fire({
             title: 'Are you sure you want to delete?',

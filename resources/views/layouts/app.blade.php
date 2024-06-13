@@ -1,7 +1,7 @@
 <x-layouts.base>
 
 
-    @if(in_array(request()->route()->getName(), ['dashboard', 'profile', 'drivers', 'drivercreate', 'driver-details', 'driver-edit', 'earning', 'riders', 'riderequest', 'riderequestdetails', 'driver_ratings', 'driverratingdetails', 'rider_ratings', 'riderratingdetails', 'feedback', 'feedbackdetails', 'profile-example', 'users', 'bootstrap-tables', 'transactions',
+    @if(in_array(request()->route()->getName(), ['dashboard', 'profile', 'drivers', 'drivercreate', 'driverdetails', 'driveredit', 'earning', 'riders', 'rideredit', 'ridercreate', 'riderequest', 'riderequestdetails', 'driver_ratings', 'driverratingdetails', 'rider_ratings', 'riderratingdetails', 'feedback', 'feedbackdetails', 'profile-example', 'users', 'bootstrap-tables', 'transactions',
     'buttons', 'forms', 'modals', 'notifications', 'notificationdetails', 'notificationcreate', 'typography', 'upgrade-to-pro']))
 
     {{-- Nav --}}

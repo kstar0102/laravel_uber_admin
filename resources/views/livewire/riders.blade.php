@@ -20,13 +20,21 @@
         <h2 class="h4">Rider List</h2>
     </div>
     <div class="btn-toolbar mb-2 mb-md-0">
-        
+        <a href="/rider/create" class="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+            <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+                </path>
+            </svg>
+            New Rider
+        </a>
     </div>
 </div>
 <div class="card card-body shadow border-0 table-wrapper table-responsive">
     <table class="table table-flush" id="datatable">
         <thead class="thead-light">
             <tr>
+                <th></th>
                 <th>Name</th>
                 <th>Contact Number</th>
                 <th>Email</th>
@@ -35,60 +43,40 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>+1 39281802819</td>
-                <td>startcoding@gmail.com</td>
-                <td>
-                    <span class="text-capitalize badge bg-info p-sm-2">active</span>
-                </td>
-                <td>
-                    <div class="d-flex aligh-items-center">
-                        <span class="me-md-1 rider-edit-btn" data-id="1">
-                            <i class="fas fa-edit text-info"></i>
-                        </span>
-                        <span class="me-md-1 rider-del-btn" data-id="1">
-                            <i class="fas fa-trash text-danger"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Nixon</td>
-                <td>+1 3281802819</td>
-                <td>startcoding@gmail.com</td>
-                <td>
-                    <span class="text-capitalize badge bg-info p-sm-2">active</span>
-                </td>
-                <td>
-                    <div class="d-flex aligh-items-center">
-                        <span class="me-md-1 rider-edit-btn" data-id="1">
-                            <i class="fas fa-edit text-info"></i>
-                        </span>
-                        <span class="me-md-1 rider-del-btn" data-id="1">
-                            <i class="fas fa-trash text-danger"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>            
-            <tr>
-                <td>Tiger</td>
-                <td>+1 19281802819</td>
-                <td>startcoding@gmail.com</td>
-                <td>
-                    
-                </td>
-                <td>
-                    <div class="d-flex aligh-items-center">
-                        <span class="me-md-1 rider-edit-btn" data-id="1">
-                            <i class="fas fa-edit text-info"></i>
-                        </span>
-                        <span class="me-md-1 rider-del-btn" data-id="1">
-                            <i class="fas fa-trash text-danger"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>
+            @foreach ($riders as $item)
+                <tr>
+                    <td>
+                        @if($item->photo)
+                            <img src="{{ asset('storage/' . $item->photo) }}" alt="Rider Photo" class="img-fluid rounded-circle avatar-item" width="50" height="50">
+                        @else
+                            <img class="img-fluid rounded-circle avatar-item" src="../../assets/img/profile_default.jpg" alt="change avatar">
+                        @endif
+                    </td>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->phone_number }}</td>
+                    <td>{{ $item->email }}</td>
+                    <td>
+                        @if($item->status == 1)
+                            <span class="text-capitalize badge bg-info p-sm-2">active</span>
+                        @else
+                            <span></span>
+                        @endif
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <a href="/rider/edit/{{ $item->id }}" class="me-md-1">
+                                <i class="fas fa-edit text-info"></i>
+                            </a>
+                            {{-- <a href="/driver/details/{{ $driver->id }}" class="me-md-1">
+                                <i class="fas fa-eye text-primary"></i>
+                            </a> --}}
+                            <a href="#" class="me-md-1 driver-del-btn" wire:confirm="Are you sure?" wire:click="remove">
+                                <i class="fas fa-trash text-danger"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

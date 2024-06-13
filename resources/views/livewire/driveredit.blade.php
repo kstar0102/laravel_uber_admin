@@ -1,7 +1,7 @@
 <div>
-    <title>Driver Create</title>
+    <title>Driver Edit</title>
     @if (session()->has('message'))
-        <div class="alert alert-success">{{ session('message') }}</div>
+    <div class="alert alert-success">{{ session('message') }}</div>
     @endif
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
         <div class="d-block mb-4 mb-md-0">
@@ -19,14 +19,14 @@
                     </li>
                     <li class="breadcrumb-item"><a href="/">Volt</a></li>
                     <li class="breadcrumb-item"><a href="/drivers">Drivers List</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Driver Create</li>
+                    <li class="breadcrumb-item active" aria-current="page">Driver Edit</li>
                 </ol>
             </nav>
-            <h2 class="h4">Driver Create</h2>
+            <h2 class="h4">Drivers Edit</h2>
         </div>
     </div>
-
-    <form wire:submit.prevent="save">
+    
+    <form wire:submit.prevent="updateDriver">
         <div class = "row">
             <div class="col-12 col-xl-4">
                 <div class="col-12">
@@ -34,10 +34,12 @@
                         <h2 class="h5 mb-4">Select profile photo</h2>
                         <div class="d-flex align-items-center">
                             <div class="me-3">
-                                @if ($driver_photo)
-                                    <img class="rounded avatar-xl" src="{{ $driver_photo->temporaryUrl() }}">
+                                @if(gettype($driver_photo) == 'string')
+                                    <img src="{{ asset('storage/' . $driver_photo) }}" class="rounded avatar-xl" alt="Driver Photo">
+                                @elseif(gettype($driver_photo) != 'string')
+                                    <img src="{{ $driver_photo->temporaryUrl() }}" class="rounded avatar-xl" alt="Driver Photo">
                                 @else
-                                     <img class="rounded avatar-xl" src="../../assets/img/profile_default.jpg" alt="change avatar">
+                                    <img class="rounded avatar-xl" src="{{ asset('assets/img/profile_default.jpg') }}" alt="change avatar">
                                 @endif
                             </div>
                             <div class="file-field">
@@ -50,7 +52,6 @@
                                             </path>
                                         </svg>
                                         <input wire:model="driver_photo" class="form-control" id="driver_photo" type="file" accept="image/*">
-                                        @error('driver_photo') <span class="text-danger">{{ $message }}</span> @enderror
                                         <div class="d-md-block text-left">
                                             <div class="fw-normal text-dark mb-1">Choose Image</div>
                                             <div class="text-gray small">JPG, GIF or PNG. Max size of 800K</div>
@@ -60,15 +61,17 @@
                             </div>
                         </div>
                     </div>
-
+    
                     <div class="card card-body border-0 shadow mb-4">
                         <h2 class="h5 mb-4">Select car photo</h2>
                         <div class="d-flex align-items-center">
                             <div class="me-3">
-                                @if ($car_photo)
-                                    <img class="rounded avatar-xl" src="{{ $car_photo->temporaryUrl() }}">
+                                @if(gettype($car_photo) == 'string')
+                                    <img src="{{ asset('storage/' . $car_photo) }}" class="rounded avatar-xl" alt="Driver Photo">
+                                @elseif(gettype($car_photo) != 'string')
+                                    <img src="{{ $car_photo->temporaryUrl() }}" class="rounded avatar-xl" alt="Driver Photo">
                                 @else
-                                    <img class="rounded avatar-xl" src="../../assets/img/car_default.png" alt="change avatar">
+                                    <img class="rounded avatar-xl" src="{{ asset('assets/img/profile_default.jpg') }}" alt="change avatar">
                                 @endif
                             </div>
                             <div class="file-field">
@@ -81,7 +84,6 @@
                                             </path>
                                         </svg>
                                         <input wire:model="car_photo" class="form-control" id="car_photo" type="file" accept="image/*">
-                                        @error('car_photo') <span class="text-danger">{{ $message }}</span> @enderror
                                         <div class="d-md-block text-left">
                                             <div class="fw-normal text-dark mb-1">Choose Image</div>
                                             <div class="text-gray small">JPG, GIF or PNG. Max size of 800K</div>
@@ -93,75 +95,63 @@
                     </div>
                 </div>
             </div>
-
+    
             <div class="col-12 col-xl-8">
                 <div class="card card-body border-0 shadow mb-4">
                     <h2 class="h5 mb-4">General information</h2>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="first_name">First Name</label>
-                            <input wire:model.lazy="first_name" class="form-control" id="first_name" type="text" placeholder="Enter your first name">
+                            <input wire:model.lazy="first_name" class="form-control" id="first_name" type="text" placeholder="Enter your first name" value="{{$first_name}}">
                             @error('first_name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="last_name">Last Name</label>
-                            <input wire:model.lazy="last_name" class="form-control" id="last_name" type="text" placeholder="Enter your last name">
+                            <input wire:model.lazy="last_name" class="form-control" id="last_name" type="text" placeholder="Enter your last name" value="{{$last_name}}">
                             @error('last_name') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="email">Email</label>
-                            <input wire:model.lazy="email" class="form-control" id="email" type="email" placeholder="name@company.com">
+                            <input wire:model.lazy="email" class="form-control" id="email" type="email" placeholder="name@company.com" value="{{$email}}">
                             @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="phone_number">Phone Number</label>
-                            <input wire:model.lazy="phone_number" class="form-control" id="phone_number" type="text" placeholder="+1-234 567 8910">
+                            <input wire:model.lazy="phone_number" class="form-control" id="phone_number" type="text" placeholder="+1-234 567 8910" value="{{$phone_number}}">
                             @error('phone_number') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="password">Password</label>
-                            <input wire:model.lazy="password" class="form-control" id="password" type="password" placeholder="Enter new password">
-                            @error('password') <span class="text-danger">{{ $message }}</span> @enderror
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="password_confirmation">Confirm Password</label>
-                            <input wire:model.lazy="password_confirmation" class="form-control" id="password_confirmation" type="password" placeholder="Confirm your password">
-                            @error('password_confirmation') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="car_type">Car Type</label>
-                            <input wire:model.lazy="car_type" class="form-control" id="car_type" type="text" placeholder="Enter your car's type">
+                            <input wire:model.lazy="car_type" class="form-control" id="car_type" type="text" placeholder="Enter your car's type" value="{{$car_type}}">
                             @error('car_type') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="car_color">Car Color</label>
-                            <input wire:model.lazy="car_color" class="form-control" id="car_color" type="text" placeholder="Enter your car's color">
-                            @error('car_color') <span class="text-danger">{{ $message }}</span> @enderror
+                            <input wire:model.lazy="car_color" class="form-control" id="car_color" type="text" placeholder="Enter your car's color" value="{{$car_color}}">
+                            @error('car_type') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="car_number">Car Number</label>
-                            <input wire:model.lazy="car_number" class="form-control" id="car_number" type="text" placeholder="Enter your car's number">
+                            <input wire:model.lazy="car_number" class="form-control" id="car_number" type="text" placeholder="Enter your car's number" value="{{$car_number}}">
                             @error('car_number') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="rating">Rating</label>
-                            <input wire:model.lazy="rating" class="form-control" id="rating" type="number" placeholder="Enter your rating">
+                            <input wire:model.lazy="rating" class="form-control" id="rating" type="number" placeholder="Enter your rating" value="{{$rating}}">
                             @error('rating') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="license_verification">License Verification</label>
                             <select wire:model.lazy="license_verification" class="form-select" id="license_verification">
-                                <option value="0">Pending</option>
-                                <option value="1">Verified</option>
-                                <option value="2">Rejected</option>
+                                <option value="0" {{ $license_verification == 0 ? 'selected' : '' }}>Pending</option>
+                                <option value="1" {{ $license_verification == 1 ? 'selected' : '' }}>Verified</option>
+                                <option value="2" {{ $license_verification == 2 ? 'selected' : '' }}>Rejected</option>
                             </select>
                             @error('license_verification') <span class="text-danger">{{ $message }}</span> @enderror    
                         </div>
@@ -169,7 +159,7 @@
                 </div>
             </div>
         </div>
-
+    
         <div class="row">
             <div class="col-12 col-xl-12">
                 <div class="card card-body border-0 shadow mb-4">
@@ -177,15 +167,17 @@
                     <div class="row">
                         <div class="col-12 col-xl-12">
                             <div class="d-flex flex-wrap align-items-center">
-                                <div class="card card-body border-0 shadow mb-4">
+                                <div class="card card-body border-0 shadow mb-3">
                                     <h2 class="h5 mb-4">Select Passport Frontend photo</h2>
                                     <div class="d-flex align-items-center">
                                         <div class="me-3">
-                                            @if ($passport_frontend)
-                                                <img class="rounded avatar-xl" src="{{ $passport_frontend->temporaryUrl() }}">
+                                            @if(gettype($passport_frontend) == 'string')
+                                                <img src="{{ asset('storage/' . $passport_frontend) }}" class="rounded avatar-xl" alt="Driver Photo">
+                                            @elseif(gettype($passport_frontend) != 'string')
+                                                <img src="{{ $passport_frontend->temporaryUrl() }}" class="rounded avatar-xl" alt="Driver Photo">
                                             @else
-                                                <img class="rounded avatar-xl" src="../../assets/img/lisence-front.png" alt="change avatar">
-                                            @endif 
+                                                <img class="rounded avatar-xl" src="{{ asset('assets/img/profile_default.jpg') }}" alt="change avatar">
+                                            @endif
                                         </div>
                                         <div class="file-field">
                                             <div class="d-flex justify-content-xl-center ms-xl-3">
@@ -197,7 +189,6 @@
                                                         </path>
                                                     </svg>
                                                     <input wire:model="passport_frontend" class="form-control" id="passport_frontend" type="file" accept="image/*">
-                                                    @error('passport_frontend') <span class="text-danger">{{ $message }}</span> @enderror
                                                     <div class="d-md-block text-left">
                                                         <div class="fw-normal text-dark mb-1">Choose Image</div>
                                                         <div class="text-gray small">JPG, GIF or PNG. Max size of 800K</div>
@@ -207,16 +198,18 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="card card-body border-0 shadow mb-4">
+    
+                                <div class="card card-body border-0 shadow mb-3">
                                     <h2 class="h5 mb-4">Select Passport Backend photo</h2>
                                     <div class="d-flex align-items-center">
                                         <div class="me-3">
-                                            @if ($passport_backend)
-                                                <img class="rounded avatar-xl" src="{{ $passport_backend->temporaryUrl() }}">
+                                            @if(gettype($passport_backend) == 'string')
+                                                <img src="{{ asset('storage/' . $passport_backend) }}" class="rounded avatar-xl" alt="Driver Photo">
+                                            @elseif(gettype($passport_backend) != 'string')
+                                                <img src="{{ $passport_backend->temporaryUrl() }}" class="rounded avatar-xl" alt="Driver Photo">
                                             @else
-                                                <img class="rounded avatar-xl" src="../../assets/img/lisence-back.png" alt="change avatar">
-                                            @endif 
+                                                <img class="rounded avatar-xl" src="{{ asset('assets/img/profile_default.jpg') }}" alt="change avatar">
+                                            @endif
                                         </div>
                                         <div class="file-field">
                                             <div class="d-flex justify-content-xl-center ms-xl-3">
@@ -228,7 +221,6 @@
                                                         </path>
                                                     </svg>
                                                     <input wire:model="passport_backend" class="form-control" id="passport_backend" type="file" accept="image/*">
-                                                    @error('passport_backend') <span class="text-danger">{{ $message }}</span> @enderror
                                                     <div class="d-md-block text-left">
                                                         <div class="fw-normal text-dark mb-1">Choose Image</div>
                                                         <div class="text-gray small">JPG, GIF or PNG. Max size of 800K</div>
@@ -238,51 +230,27 @@
                                         </div>
                                     </div>
                                 </div>
-
+    
+                                <div class="d-flex align-items-center">
+                                    <svg class="icon icon-lg" fill="#E11D48" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0"
+                                        d="M 12 2 C 6.4889971 2 2 6.4889971 2 12 C 2 17.511003 6.4889971 22 12 22 C 17.511003 22 22 17.511003 22 12 C 22 6.4889971 17.511003 2 12 2 z M 12 4 C 16.430123 4 20 7.5698774 20 12 C 20 16.430123 16.430123 20 12 20 C 7.5698774 20 4 16.430123 4 12 C 4 7.5698774 7.5698774 4 12 4 z M 8.7070312 7.2929688 L 7.2929688 8.7070312 L 10.585938 12 L 7.2929688 15.292969 L 8.7070312 16.707031 L 12 13.414062 L 15.292969 16.707031 L 16.707031 15.292969 L 13.414062 12 L 16.707031 8.7070312 L 15.292969 7.2929688 L 12 10.585938 L 8.7070312 7.2929688 z">
+                                        </path> -->
+                                    </svg>
+                                    @if($license_verification == 0)
+                                        <span class="pendding">Pendding</span>
+                                    @elseif($license_verification == 1)
+                                        <span class="verified">Verified</span>
+                                    @else
+                                        <span class="unverified">Rejected</span>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="driver_photo">Profile Photo</label>
-                <input wire:model="driver_photo" class="form-control" id="driver_photo" type="file" accept="image/*">
-                @if ($driver_photo)
-                    <img class="img-thumbnail mt-2" src="{{ $driver_photo->temporaryUrl() }}">
-                @endif
-                @error('driver_photo') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="car_photo">Car Photo</label>
-                <input wire:model="car_photo" class="form-control" id="car_photo" type="file" accept="image/*">
-                @if ($car_photo)
-                    <img class="img-thumbnail mt-2" src="{{ $car_photo->temporaryUrl() }}">
-                @endif
-                @error('car_photo') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-        </div> -->
-
-        <!-- <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="passport_frontend">Passport Frontend</label>
-                <input wire:model="passport_frontend" class="form-control" id="passport_frontend" type="file" accept="image/*">
-                @if ($passport_frontend)
-                    <img class="img-thumbnail mt-2" src="{{ $passport_frontend->temporaryUrl() }}">
-                @endif
-                @error('passport_frontend') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="passport_backend">Passport Backend</label>
-                <input wire:model="passport_backend" class="form-control" id="passport_backend" type="file" accept="image/*">
-                @if ($passport_backend)
-                    <img class="img-thumbnail mt-2" src="{{ $passport_backend->temporaryUrl() }}">
-                @endif
-                @error('passport_backend') <span class="text-danger">{{ $message }}</span> @enderror
-            </div>
-        </div> -->
         <button type="submit" class="btn btn-primary">Save All</button>
     </form>
 </div>

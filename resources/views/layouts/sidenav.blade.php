@@ -89,7 +89,7 @@
       </li>
       <li class="nav-item">
         <span
-          class="nav-link {{ Request::segment(1) == 'riders' || Request::segment(1) == 'riderequest' || Request::segment(1) == 'riderequestdetails' ? '' : 'collapsed' }} d-flex justify-content-between align-items-center"
+          class="nav-link {{ Request::segment(1) == 'riders' || Request::segment(1) == 'riderequest' || Request::segment(1) == 'rider' || Request::segment(1) == 'riderequestdetails' ? '' : 'collapsed' }} d-flex justify-content-between align-items-center"
           data-bs-toggle="collapse" data-bs-target="#submenu-rides">
           <span>
             <span class="sidebar-icon">
@@ -107,7 +107,7 @@
             </svg>
           </span>
         </span>
-        <div class="multi-level collapse {{ Request::segment(1) == 'riders' || Request::segment(1) == 'riderequest' ? 'show' : '' }}" role="list"
+        <div class="multi-level collapse {{ Request::segment(1) == 'riders' || Request::segment(1) == 'riderequest' || Request::segment(1) == 'rider' ? 'show' : '' }}" role="list"
           id="submenu-rides" aria-expanded="false">
           <ul class="flex-column nav">
             <li class="nav-item {{ Request::segment(1) == 'riders' ? 'active' : '' }}">

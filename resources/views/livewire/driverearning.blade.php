@@ -34,42 +34,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>$34</td>
-                <td>$500</td>
-                <td>$4,346</td>
-            </tr>
-            <tr>
-                <td>Alex Miller</td>
-                <td>$100</td>
-                <td>$650</td>
-                <td>$5,346</td>
-            </tr>
-            <tr>
-                <td>Michael Lee</td>
-                <td>$31</td>
-                <td>$400</td>
-                <td>$2,346</td>
-            </tr>
-            <tr>
-                <td>Walter White</td>
-                <td>$460</td>
-                <td>$1,000</td>
-                <td>$10,453</td>
-            </tr>
-            <tr>
-                <td>Jack</td>
-                <td>$30</td>
-                <td>$589</td>
-                <td>$1,346</td>
-            </tr>
-            <tr>
-                <td>Lion Nixon</td>
-                <td>$23</td>
-                <td>$436</td>
-                <td>$2,153</td>
-            </tr>
+            @foreach ($drivers as $item)
+                <tr>
+                    <td>{{ $item->first_name }} {{ $item->last_name }}</td>
+                    <td>$ {{ $item->today_earning }}</td>
+                    <td>$ {{ $item->month_earning }}</td>
+                    <td>$ {{ $item->total_earning }}</td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
