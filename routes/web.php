@@ -34,6 +34,7 @@ use App\Http\Livewire\RiderCreate;
 use App\Http\Livewire\RiderEdit;
 use App\Http\Livewire\RideRequest;
 use App\Http\Livewire\Riderequestdetails;
+use App\Http\Livewire\RideRequestCreate;
 use App\Http\Livewire\DriverRatings;
 use App\Http\Livewire\DriverRatingDetails;
 use App\Http\Livewire\RiderRatings;
@@ -75,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/rider/create', RiderCreate::class)->name('ridercreate');
     Route::get('/rider/edit/{id}', RiderEdit::class)->name('rideredit');
     Route::get('/riderequest', RideRequest::class)->name('riderequest');
+    Route::get('/riderequest/create', RideRequestCreate::class)->name('riderequestcreate');
     Route::get('/riderequest/{id}', Riderequestdetails::class)->name('riderequestdetails');
     Route::get('/driverratings', DriverRatings::class)->name('driverratings');
     Route::get('/driverratings/{id}', DriverRatingDetails::class)->name('driverratingdetails');

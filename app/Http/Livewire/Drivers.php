@@ -14,14 +14,10 @@ class Drivers extends Component
         $this->drivers = Driver::all();
     }
 
-    // public function remove($id) {
-    //     $driver = Driver::find($id);
-    //     $driver->delete();
-    //     $this->drivers = Driver::all();
-    // }
-    
-    public function remove() {
-        dd('asdfasdf');
+    public function remove($id) {
+        $driver = Driver::find($id);
+        $driver->delete();
+        $this->drivers = Driver::all();
     }
 
     public function render()

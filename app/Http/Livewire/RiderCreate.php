@@ -5,6 +5,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Rider;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 use Carbon\Carbon;
 
 class RiderCreate extends Component

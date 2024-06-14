@@ -19,11 +19,15 @@ class RideRequest extends Component
                                 ->get();
     }
 
-    // public function remove($id) {
-    //     $request = Request::find($id);
-    //     $request->delete();
-    //     $this->requests = Request::all();
-    // }
+    public function remove($id) {
+        $request = Request::find($id);
+        $request->delete();
+        $this->requests = DB::table("requests")
+                                ->select("requests.*", DB::raw("CONCAT(drivers.first_name, ' ', drivers.last_name) as driver_name"), "riders.name as rider_name")
+                                ->leftJoin("drivers", "drivers.id", "=", "requests.driver_id")
+                                ->leftJoin("riders", "riders.id", "=", "requests.rider_id")
+                                ->get();
+    }
 
     public function render()
     {

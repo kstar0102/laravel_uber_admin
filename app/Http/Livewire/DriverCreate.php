@@ -5,6 +5,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Driver;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\QueryException;
 
 class DriverCreate extends Component
 {
@@ -107,11 +108,9 @@ class DriverCreate extends Component
             $this->driver->create($validatedData);
             session()->flash('message', 'Driver information saved successfully.');
         } catch (QueryException $e) {
-            // Check if the error is a duplicate entry for the 'email' column
             if ($e->errorInfo[1] == 1062) {
                 $this->addError('email', 'The email has already been taken.');
             } else {
-                // Handle other possible errors
                 $this->addError('general', 'Failed to create new driver due to unexpected error.');
             }
         }

@@ -33,72 +33,86 @@
         </div>
     </div>
     
-        <div class="card card-body shadow border-0 table-wrapper table-responsive">
-            <table class="table table-flush" id="datatable">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Picture</th>
-                        <th>Name</th>
-                        <th>Contact Number</th>
-                        <th>Email</th>
-                        <th>Car Number</th>
-                        <th>Verfication</th>
-                        <th>Action</th>
+    <div class="card card-body shadow border-0 table-wrapper table-responsive">
+        <table class="table table-flush" id="datatable">
+            <thead class="thead-light">
+                <tr>
+                    <th>Picture</th>
+                    <th>Name</th>
+                    <th>Contact Number</th>
+                    <th>Email</th>
+                    <th>Car Number</th>
+                    <th>Verfication</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($drivers as $driver)
+                    <tr wire:key="{{ $driver->id }}">
+                        <td>
+                            @if($driver->driver_photo)
+                                <img src="{{ asset('storage/' . $driver->driver_photo) }}" alt="Driver Photo" class="img-fluid rounded-circle avatar-item" width="50" height="50">
+                            @else
+                                N/A
+                            @endif
+                        </td>
+                        <td>{{ $driver->first_name }} {{ $driver->last_name }}</td>
+                        <td>{{ $driver->phone_number }}</td>
+                        <td>{{ $driver->email }}</td>
+                        <td>{{ $driver->car_number }}</td>
+                        <td>
+                            @if($driver->license_verification == 1)
+                                <span class="text-capitalize badge bg-success p-sm-2">Verified</span>
+                            @elseif($driver->license_verification == 2)
+                                <span class="text-capitalize badge bg-danger p-sm-2">Rejected</span>
+                            @else
+                                <span class="text-capitalize badge bg-warning p-sm-2">Not verified</span>
+                            @endif
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <a href="/driver/edit/{{ $driver->id }}" class="me-md-1">
+                                    <i class="fas fa-edit text-info"></i>
+                                </a>
+                                <a href="/driver/details/{{ $driver->id }}" class="me-md-1">
+                                    <i class="fas fa-eye text-primary"></i>
+                                </a>
+                                <a href="javascript: void(0);" class="me-md-1 driver-del-btn" data-id="{{ $driver->id }}">
+                                    <i class="fas fa-trash text-danger"></i>
+                                </a>
+                            </div>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach($drivers as $driver)
-                        <tr>
-                            <td>
-                                @if($driver->driver_photo)
-                                    <img src="{{ asset('storage/' . $driver->driver_photo) }}" alt="Driver Photo" class="img-fluid rounded-circle avatar-item" width="50" height="50">
-                                @else
-                                    N/A
-                                @endif
-                            </td>
-                            <td>{{ $driver->first_name }} {{ $driver->last_name }}</td>
-                            <td>{{ $driver->phone_number }}</td>
-                            <td>{{ $driver->email }}</td>
-                            <td>{{ $driver->car_number }}</td>
-                            <td>
-                                @if($driver->license_verification == 1)
-                                    <span class="text-capitalize badge bg-success p-sm-2">Verified</span>
-                                @elseif($driver->license_verification == 2)
-                                    <span class="text-capitalize badge bg-danger p-sm-2">Rejected</span>
-                                @else
-                                    <span class="text-capitalize badge bg-warning p-sm-2">Not verified</span>
-                                @endif
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <a href="/driver/edit/{{ $driver->id }}" class="me-md-1">
-                                        <i class="fas fa-edit text-info"></i>
-                                    </a>
-                                    <a href="/driver/details/{{ $driver->id }}" class="me-md-1">
-                                        <i class="fas fa-eye text-primary"></i>
-                                    </a>
-                                    <span class="me-md-1 driver-del-btn" wire:key="{{ $driver->id }}" wire:click="remove({{ $driver->id }})">
-                                        <i class="fas fa-trash text-danger"></i>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        {{-- <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
-            <i class="fas fa-trash text-danger"></i>
-        </a>
-        <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
-            <i class="fas fa-trash text-danger"></i>
-        </a>
-        <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
-            <i class="fas fa-trash text-danger"></i>
-        </a>
-        <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
-            <i class="fas fa-trash text-danger"></i>
-        </a> --}}
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<script src="../../assets/js/drivers.js"></script>
+<script>
+    $(function () {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-gray'
+            },
+            buttonsStyling: false
+        });
+
+        $('.driver-del-btn').click(function() {
+            let del_id = $(this).attr('data-id');
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure you want to delete?',
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger me-2",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            }).then((res) => {
+                if(res.isConfirmed) {
+                    @this.call('remove', del_id);
+                }
+            });
+        });
+    });
+</script>

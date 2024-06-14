@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('rider_id');
             $table->integer('driver_id');
-            $table->float('cost')->default(0.0);
+            $table->float('cost')->default(0.0)->nullable();
             $table->string('start_location');
             $table->string('stop_location')->nullable();
             $table->string('end_location');

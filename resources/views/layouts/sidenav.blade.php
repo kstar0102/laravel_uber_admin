@@ -107,7 +107,7 @@
             </svg>
           </span>
         </span>
-        <div class="multi-level collapse {{ Request::segment(1) == 'riders' || Request::segment(1) == 'riderequest' || Request::segment(1) == 'rider' ? 'show' : '' }}" role="list"
+        <div class="multi-level collapse {{ Request::segment(1) == 'riders' || Request::segment(1) == 'riderequest' || Request::segment(1) == 'rider' || Request::segment(1) == 'riderequestdetails' ? 'show' : '' }}" role="list"
           id="submenu-rides" aria-expanded="false">
           <ul class="flex-column nav">
             <li class="nav-item {{ Request::segment(1) == 'riders' ? 'active' : '' }}">

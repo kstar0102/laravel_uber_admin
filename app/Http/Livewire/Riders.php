@@ -14,11 +14,11 @@ class Riders extends Component
         $this->riders = Rider::all();
     }
 
-    // public function remove($id) {
-    //     $rider = Rider::find($id);
-    //     $rider->delete();
-    //     $this->riders = Rider::all();
-    // }
+    public function remove($id) {
+        $rider = Rider::find($id);
+        $rider->delete();
+        $this->riders = Rider::all();
+    }
 
     public function render()
     {
