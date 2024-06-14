@@ -48,7 +48,7 @@
                 </thead>
                 <tbody>
                     @foreach($drivers as $driver)
-                        <tr wire:key="driver-{{ $driver->id }}">
+                        <tr>
                             <td>
                                 @if($driver->driver_photo)
                                     <img src="{{ asset('storage/' . $driver->driver_photo) }}" alt="Driver Photo" class="img-fluid rounded-circle avatar-item" width="50" height="50">
@@ -77,9 +77,9 @@
                                     <a href="/driver/details/{{ $driver->id }}" class="me-md-1">
                                         <i class="fas fa-eye text-primary"></i>
                                     </a>
-                                    <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
+                                    <span class="me-md-1 driver-del-btn" wire:key="{{ $driver->id }}" wire:click="remove({{ $driver->id }})">
                                         <i class="fas fa-trash text-danger"></i>
-                                    </a>
+                                    </span>
                                 </div>
                             </td>
                         </tr>
@@ -87,4 +87,18 @@
                 </tbody>
             </table>
         </div>
+        <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
+            <i class="fas fa-trash text-danger"></i>
+        </a>
+        <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
+            <i class="fas fa-trash text-danger"></i>
+        </a>
+        <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
+            <i class="fas fa-trash text-danger"></i>
+        </a>
+        <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
+            <i class="fas fa-trash text-danger"></i>
+        </a>
 </div>
+
+<script src="../../assets/js/drivers.js"></script>

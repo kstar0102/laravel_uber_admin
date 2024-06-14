@@ -19,6 +19,12 @@ class RideRequest extends Component
                                 ->get();
     }
 
+    // public function remove($id) {
+    //     $request = Request::find($id);
+    //     $request->delete();
+    //     $this->requests = Request::all();
+    // }
+
     public function render()
     {
         return view('livewire.riderequest');

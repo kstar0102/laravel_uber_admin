@@ -32,66 +32,28 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    Alex Miller
-                </td>
-                <td>
-                    Henrry Paternina
-                </td>
-                <td>
-                    <span class="fw-bold">$799,00</span>
-                </td>
-                <td>
-                    <span class="fw-normal">1 Jun 2020</span>
-                </td>
-                <td>
-                    Pay
-                </td>
-                <td>
-                    <span class="fw-bold text-warning">Due</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Alex Miller
-                </td>
-                <td>
-                    Henrry Paternina
-                </td>
-                <td>
-                    <span class="fw-bold">$799,00</span>
-                </td>
-                <td>
-                    <span class="fw-normal">1 Jun 2020</span>
-                </td>
-                <td>
-                    Pay
-                </td>
-                <td>
-                    <span class="fw-bold text-success">Paid</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    Alex Miller
-                </td>
-                <td>
-                    Henrry Paternina
-                </td>
-                <td>
-                    <span class="fw-bold">$799,00</span>
-                </td>
-                <td>
-                    <span class="fw-normal">1 Jun 2020</span>
-                </td>
-                <td>
-                    Refund
-                </td>
-                <td>
-                    <span class="fw-bold text-danger">Cancelled</span>
-                </td>
-            </tr>
+            @foreach($transactions as $item)
+                <tr>
+                    <td>{{ $item->driver_name }}</td>
+                    <td>{{ $item->rider_name }}</td>
+                    <td>
+                        <span class="fw-bold">${{ $item->cost }}</span>
+                    </td>
+                    <td>
+                        <span class="fw-normal">{{ date('j M Y', strtotime($item->end_date)) }}</span>
+                    </td>
+                    <td>Pay</td>
+                    <td>
+                        @if($item->status == 0)
+                            <span class="fw-bold text-warning">Due</span>
+                        @elseif($item->status == 1)
+                            <span class="fw-bold text-success">Paid</span>
+                        @else
+                            <span class="fw-bold text-danger">Cancelled</span>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

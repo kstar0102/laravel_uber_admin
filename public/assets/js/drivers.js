@@ -17,11 +17,10 @@ $(function () {
             confirmButtonClass: "btn-danger me-2",
             confirmButtonText: "Yes",
             cancelButtonText: "No",
-            closeOnConfirm: false,
-            closeOnCancel: false
         }).then((res) => {
             if(res.isConfirmed) {
-                // delete
+                console.log('removed');
+                Livewire.emit('remove()');
             }
         });
     });

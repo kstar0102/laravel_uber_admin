@@ -19,6 +19,7 @@ class Drivers extends Component
     //     $driver->delete();
     //     $this->drivers = Driver::all();
     // }
+    
     public function remove() {
         dd('asdfasdf');
     }
