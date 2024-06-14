@@ -76,10 +76,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/rider/edit/{id}', RiderEdit::class)->name('rideredit');
     Route::get('/riderequest', RideRequest::class)->name('riderequest');
     Route::get('/riderequest/{id}', Riderequestdetails::class)->name('riderequestdetails');
-    Route::get('/driver_ratings', DriverRatings::class)->name('driver_ratings');
-    Route::get('/driver_ratings/{id}', DriverRatingDetails::class)->name('driverratingdetails');
-    Route::get('/rider_ratings', RiderRatings::class)->name('rider_ratings');
-    Route::get('/rider_ratings/{id}', RiderRatingDetails::class)->name('riderratingdetails');
+    Route::get('/driverratings', DriverRatings::class)->name('driverratings');
+    Route::get('/driverratings/{id}', DriverRatingDetails::class)->name('driverratingdetails');
+    Route::get('/riderratings', RiderRatings::class)->name('riderratings');
+    Route::get('/riderratings/{id}', RiderRatingDetails::class)->name('riderratingdetails');
     Route::get('/feedback', Feedback::class)->name('feedback');
     Route::get('/feedback/{id}', FeedbackDetails::class)->name('feedbackdetails');
     Route::get('/dashboard', Dashboard::class)->name('dashboard');

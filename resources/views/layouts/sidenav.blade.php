@@ -153,16 +153,16 @@
             </svg>
           </span>
         </span>
-        <div class="multi-level collapse {{ Request::segment(1) == 'driver_ratings' || Request::segment(1) == 'rider_ratings' ? 'show' : '' }}" role="list"
+        <div class="multi-level collapse {{ Request::segment(1) == 'driverratings' || Request::segment(1) == 'riderratings' ? 'show' : '' }}" role="list"
           id="submenu-ratings" aria-expanded="false">
           <ul class="flex-column nav">
-            <li class="nav-item {{ Request::segment(1) == 'driver_ratings' ? 'active' : '' }}">
-              <a class="nav-link" href="/driver_ratings">
+            <li class="nav-item {{ Request::segment(1) == 'driverratings' ? 'active' : '' }}">
+              <a class="nav-link" href="/driverratings">
                 <span class="sidebar-text">Drivers</span>
               </a>
             </li>
-            <li class="nav-item {{ Request::segment(1) == 'rider_ratings' ? 'active' : '' }}">
-              <a class="nav-link" href="/rider_ratings">
+            <li class="nav-item {{ Request::segment(1) == 'riderratings' ? 'active' : '' }}">
+              <a class="nav-link" href="/riderratings">
                 <span class="sidebar-text">Riders</span>
               </a>
             </li>

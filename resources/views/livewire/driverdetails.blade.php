@@ -97,10 +97,20 @@
                     <div class="col-sm-6">
                         <label for="car_number">Rating</label>
                         <div class="rating-container">
-                            @for($i = 0; $i < $rating; $i ++)
+                            @php
+                                $fullStars = floor($rating); // Get the integer part for full stars
+                                $decimalPart = $rating - $fullStars; // Get the decimal part for partial star
+                            @endphp
+
+                            @for ($i = 0; $i < $fullStars; $i++)
                                 <span><i class="fas fa-star fs-7" style="color: rgb(248, 198, 20)"></i></span>
                             @endfor
-                            @for($i = 0; $i < 5 - $rating; $i ++)
+
+                            @if ($decimalPart > 0)
+                                <span><i class="fas fa-star-half-alt fs-7" style="color: rgb(248, 198, 20)"></i></span>
+                            @endif
+
+                            @for ($i = 0; $i < 5 - ceil($rating); $i++)
                                 <span><i class="fas fa-star fs-7" style="color: grey"></i></span>
                             @endfor
                         </div>

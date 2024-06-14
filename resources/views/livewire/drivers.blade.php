@@ -87,7 +87,7 @@
                 </tbody>
             </table>
         </div>
-        <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
+        {{-- <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
             <i class="fas fa-trash text-danger"></i>
         </a>
         <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
@@ -98,7 +98,7 @@
         </a>
         <a href="javascript:void(0);" class="me-md-1" wire:click="remove()">
             <i class="fas fa-trash text-danger"></i>
-        </a>
+        </a> --}}
 </div>
 
 <script src="../../assets/js/drivers.js"></script>

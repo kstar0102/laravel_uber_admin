@@ -34,52 +34,42 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>
-                    <div class="rating-container">
-                        <span><i class="fas fa-star" style="color: rgb(248, 198, 20)"></i></span>
-                        <span><i class="fas fa-star" style="color: rgb(248, 198, 20)"></i></span>
-                        <span><i class="fas fa-star" style="color: rgb(248, 198, 20)"></i></span>
-                        <span><i class="fas fa-star" style="color: rgb(248, 198, 20)"></i></span>
-                        <span><i class="fas fa-star" style="color: rgb(248, 198, 20)"></i></span>
-                    </div>
-                </td>
-                <td>27</td>
-                <td>
-                    <div class="d-flex aligh-items-center">
-                        <a href="/rider_ratings/1" class="me-md-1">
-                            <i class="fas fa-eye text-primary"></i>
-                        </a>
-                        <span class="me-md-1 del-rating-btn" data-id="1">
-                            <i class="fas fa-trash text-danger"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>Alex Miller</td>
-                <td>
-                    <div class="rating-container">
-                        <span><i class="fas fa-star" style="color: rgb(248, 198, 20)"></i></span>
-                        <span><i class="fas fa-star" style="color: rgb(248, 198, 20)"></i></span>
-                        <span><i class="fas fa-star" style="color: grey"></i></span>
-                        <span><i class="fas fa-star" style="color: grey"></i></span>
-                        <span><i class="fas fa-star" style="color: grey"></i></span>
-                    </div>
-                </td>
-                <td>56</td>
-                <td>
-                    <div class="d-flex aligh-items-center">
-                        <a href="/rider_ratings/1" class="me-md-1">
-                            <i class="fas fa-eye text-primary"></i>
-                        </a>
-                        <span class="me-md-1 del-rating-btn" data-id="1">
-                            <i class="fas fa-trash text-danger"></i>
-                        </span>
-                    </div>
-                </td>
-            </tr>
+            @foreach($ratings as $item)
+                <tr>
+                    <td>{{ $item->name }}</td>
+                    <td>
+                        <div class="rating-container">
+                            @php
+                                $fullStars = floor($item->avg_rating); // Get the integer part for full stars
+                                $decimalPart = $item->avg_rating - $fullStars; // Get the decimal part for partial star
+                            @endphp
+
+                            @for ($i = 0; $i < $fullStars; $i++)
+                                <span><i class="fas fa-star fs-7" style="color: rgb(248, 198, 20)"></i></span>
+                            @endfor
+
+                            @if ($decimalPart > 0)
+                                <span><i class="fas fa-star-half-alt fs-7" style="color: rgb(248, 198, 20)"></i></span>
+                            @endif
+
+                            @for ($i = 0; $i < 5 - ceil($item->avg_rating); $i++)
+                                <span><i class="fas fa-star fs-7" style="color: grey"></i></span>
+                            @endfor
+                        </div>
+                    </td>
+                    <td>{{ $item->total_reviews }}</td>
+                    <td>
+                        <div class="d-flex aligh-items-center">
+                            <a href="/riderratings/{{ $item->id }}" class="me-md-1">
+                                <i class="fas fa-eye text-primary"></i>
+                            </a>
+                            <span class="me-md-1 del-rating-btn" data-id="1">
+                                <i class="fas fa-trash text-danger"></i>
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
         </tbody>
     </table>
 </div>

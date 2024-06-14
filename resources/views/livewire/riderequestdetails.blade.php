@@ -139,10 +139,20 @@
                         <p class="mb-0">{{ $rider_phone_number }}</p>
                         <p class="mb-0">{{ $rider_email }}</p>
                         <div class="rating-container">
-                            @for($i = 0; $i < $rider_rating; $i ++)
+                            @php
+                                $fullStars = floor($rider_rating); // Get the integer part for full stars
+                                $decimalPart = $rider_rating - $fullStars; // Get the decimal part for partial star
+                            @endphp
+
+                            @for ($i = 0; $i < $fullStars; $i++)
                                 <span><i class="fas fa-star fs-7" style="color: rgb(248, 198, 20)"></i></span>
                             @endfor
-                            @for($i = 0; $i < 5 - $rider_rating; $i ++)
+
+                            @if ($decimalPart > 0)
+                                <span><i class="fas fa-star-half-alt fs-7" style="color: rgb(248, 198, 20)"></i></span>
+                            @endif
+
+                            @for ($i = 0; $i < 5 - ceil($rider_rating); $i++)
                                 <span><i class="fas fa-star fs-7" style="color: grey"></i></span>
                             @endfor
                         </div>
@@ -164,10 +174,20 @@
                         <p class="mb-0">{{ $driver_phone_number }}</p>
                         <p class="mb-0">{{ $driver_email }}</p>
                         <div class="rating-container">
-                            @for($i = 0; $i < $driver_rating; $i ++)
+                            @php
+                                $fullStars = floor($driver_rating); // Get the integer part for full stars
+                                $decimalPart = $driver_rating - $fullStars; // Get the decimal part for partial star
+                            @endphp
+
+                            @for ($i = 0; $i < $fullStars; $i++)
                                 <span><i class="fas fa-star fs-7" style="color: rgb(248, 198, 20)"></i></span>
                             @endfor
-                            @for($i = 0; $i < 5 - $driver_rating; $i ++)
+
+                            @if ($decimalPart > 0)
+                                <span><i class="fas fa-star-half-alt fs-7" style="color: rgb(248, 198, 20)"></i></span>
+                            @endif
+
+                            @for ($i = 0; $i < 5 - ceil($driver_rating); $i++)
                                 <span><i class="fas fa-star fs-7" style="color: grey"></i></span>
                             @endfor
                         </div>
