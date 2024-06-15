@@ -169,7 +169,7 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item {{ Request::segment(1) == 'feedback' ? 'active' : '' }}">
+      {{-- <li class="nav-item {{ Request::segment(1) == 'feedback' ? 'active' : '' }}">
         <a href="/feedback" class="nav-link">
           <span class="sidebar-icon">
             <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -180,8 +180,8 @@
           </span>
           <span class="sidebar-text">Feedback</span>
         </a>
-      </li>
-      <li class="nav-item {{ Request::segment(1) == 'notifications' ? 'active' : '' }}">
+      </li> --}}
+      {{-- <li class="nav-item {{ Request::segment(1) == 'notifications' ? 'active' : '' }}">
         <a href="/notifications" class="nav-link">
           <span class="sidebar-icon">
             <svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -192,7 +192,7 @@
           </span>
           <span class="sidebar-text">Notifications</span>
         </a>
-      </li>
+      </li> --}}
       {{-- <li class="nav-item">
         <span
           class="nav-link {{ Request::segment(1) == 'notifications' || Request::segment(1) == 'subscriptions' ? '' : 'collapsed' }} d-flex justify-content-between align-items-center"

@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire;
 
-use Carbon\Carbon;
 use Livewire\Component;
 use App\Models\Request;
 use App\Models\Driver;
+use Carbon\Carbon;
 
 class DriverEarning extends Component
 {
