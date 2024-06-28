@@ -74,9 +74,15 @@ class Dashboard extends Component
         $completion = Request::where('status', 1)->count();
         $cancellation = Request::where('status', 2)->count();
 
-        $this->request_progress = ($progress / $this->total_request) * 100;
-        $this->request_completion = ($completion / $this->total_request) * 100;
-        $this->request_cancellation = ($cancellation / $this->total_request) * 100;
+        if($this->total_request == 0) {
+            $this->request_progress = 0;
+            $this->request_completion = 0;
+            $this->request_cancellation = 0;
+        } else {
+            $this->request_progress = ($progress / $this->total_request) * 100;
+            $this->request_completion = ($completion / $this->total_request) * 100;
+            $this->request_cancellation = ($cancellation / $this->total_request) * 100;
+        }
 
         $this->driver_incomme_rankings = Driver::select('id', 'driver_photo', 'first_name', 'last_name')->get();
 
